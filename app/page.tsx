@@ -1,7 +1,6 @@
-import { type FC } from "react";
-import HelloWorldLabel from "components/hello-world-label";
+import { HelloWorldLabel } from "components/hello-world-label";
 
-const Home: FC = () => {
+export default function Home() {
   return (
     <main>
       <div className="flex justify-center items-center h-screen">
@@ -12,6 +11,4 @@ const Home: FC = () => {
       </div>
     </main>
   );
-};
-
-export default Home;
+}
