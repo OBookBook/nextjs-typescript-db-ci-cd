@@ -39,7 +39,7 @@ jobs:
       - uses: ./.github/actions/setup
         with:
           node-version: ${{ env.NODE_VERSION }}
-      - run: npm run format
+      - run: npm run format:fix
 
   typecheck:
     needs: setup
