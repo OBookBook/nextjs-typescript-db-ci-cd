@@ -3,7 +3,7 @@ name: Vercel Production Deployment
 on:
   push:
     branches:
-      - main
+      - master
 
 env:
   NODE_VERSION: "20.0.0"
