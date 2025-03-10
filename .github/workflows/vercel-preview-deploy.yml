@@ -35,16 +35,8 @@ jobs:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
-      - name: Pull Vercel Environment Information
-        run:
-          vercel pull --yes --environment=preview --token=${{
-          secrets.VERCEL_TOKEN }}
-        env:
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-
       - name: Run Prisma Migrations
-        run: npx prisma migrate deploy
+        run: npm prisma migrate deploy
         env:
           DATABASE_URL: ${{ secrets.TEST_DATABASE_URL }}
           DIRECT_URL: ${{ secrets.TEST_DIRECT_URL }}
