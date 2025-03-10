@@ -6,7 +6,7 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "next lint && prisma validate",
     "lint:fix": "next lint --fix",
     "typecheck": "tsc --noEmit",
     "clean": "git clean -xdf node_modules dist",
