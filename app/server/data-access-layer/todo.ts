@@ -1,12 +1,16 @@
 import "server-only";
 
 import { Prisma } from "@prisma/client";
+import TodoCreateInputSchema from "prisma/generated/zod/inputTypeSchemas/TodoCreateInputSchema";
+import TodoUpdateInputSchema from "prisma/generated/zod/inputTypeSchemas/TodoUpdateInputSchema";
 import { type TodoSchema } from "prisma/generated/zod/modelSchema/TodoSchema";
 import { z } from "zod";
 
 import { db } from "../db";
 
 type Todo = z.infer<typeof TodoSchema>;
+type TodoCreateInput = z.infer<typeof TodoCreateInputSchema>;
+type TodoUpdateInput = z.infer<typeof TodoUpdateInputSchema>;
 
 function createTodoDTO(input: Todo): Todo {
   return {
@@ -42,12 +46,11 @@ export async function getTodos() {
   }
 }
 
-export async function createTodo(
-  data: Omit<Todo, "id" | "createdAt" | "updatedAt">,
-) {
+export async function createTodo(data: TodoCreateInput) {
   try {
+    const validatedData = TodoCreateInputSchema.parse(data);
     const todo = await db.todo.create({
-      data: data,
+      data: validatedData,
     });
     return createTodoDTO(todo);
   } catch (error) {
@@ -55,14 +58,12 @@ export async function createTodo(
   }
 }
 
-export async function updateTodo(
-  id: number,
-  data: Partial<Omit<Todo, "createdAt" | "updatedAt">>,
-) {
+export async function updateTodo(id: number, data: TodoUpdateInput) {
   try {
+    const validatedData = TodoUpdateInputSchema.parse(data);
     const todo = await db.todo.update({
       where: { id },
-      data: data,
+      data: validatedData,
     });
     return createTodoDTO(todo);
   } catch (error) {
