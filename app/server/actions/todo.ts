@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { type Todo } from "@prisma/client";
+import { type Todo } from "prisma/generated/zod/modelSchema/TodoSchema";
 
 import {
   createTodo,
